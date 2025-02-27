@@ -27,7 +27,8 @@ The details page:
 ![Details](https://github.com/user-attachments/assets/4d43d8c0-d956-4759-b045-8d3d57ccf90f)
 
 ## Notes
-Do migration. Check the [docs](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#update-the-database).
+### Migration. 
+Check the [docs](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#update-the-database).
 
 Run commands in the root folder:
 
@@ -41,3 +42,5 @@ dotnet ef migrations add InitialCreate
 ```
 dotnet ef database update
 ```
+### To find the connection string
+In vs, view -> Properties Window -> Connection
