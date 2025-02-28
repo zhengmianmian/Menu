@@ -8,29 +8,19 @@ namespace Menu.Controllers
 {
     public class Menu : Controller
     {
-        private readonly MenuContext _context;
-        public Menu(MenuContext context) { 
-            _context = context;
+        private readonly MenuService _menuService;
+        public Menu(MenuService menuService) { 
+            _menuService = menuService;
         }
         public async Task<IActionResult> Index(string searchString)
         {
-            var dishes = from d in _context.Dishes
-                       select d;
-            if(!string.IsNullOrEmpty(searchString))
-            {
-                dishes = dishes.Where(d => d.Name.Contains(searchString));
-                return View(await dishes.ToListAsync());
-            }
-            return View(await dishes.ToListAsync());
+            var dishes = await _menuService.GetDishesAsync(searchString);
+            return View(dishes);
         }
 
         public async Task<IActionResult> Details(int? id)
         {
-            var dish = await _context.Dishes
-                .Include(di => di.DishIngredients)
-                .ThenInclude(i => i.Ingredient)
-                .FirstOrDefaultAsync(x => x.Id == id);
-
+            var dish = await _menuService.GetDishDetailsAsync(id);
             if (dish == null) { 
                 return NotFound();
             }
